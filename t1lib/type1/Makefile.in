@@ -1,0 +1,116 @@
+# Makefile.in
+# 
+# This file is part of the t1lib-package! See documentation and Readme files
+# of the t1lib-package for copyright restrictions.
+#
+# Targets provided: 
+#                      all (default)
+#                      install
+#                      clean
+#
+# Author:              Rainer Menzner (Rainer.Menzner@web.de)
+# Date:                04/06/1997
+# Last modified:       2001-04-01
+#
+# Modified by H.Kakugawa to use libtool
+
+RELSRC    =	lib/type1
+SRCDIR	  = $(TOPSRC)/$(RELSRC)
+VPATH	  = @top_srcdir@/$(RELSRC) $(resdir) $(resdir)
+LIBTOOL   = ../../libtool
+SHELL     = /bin/sh
+CC        = @CC@
+CPP       = @CPP@
+CFLAGS    = @CFLAGS@
+INCLUDES  = -I. -I$(TOPSRC) -I$(SRCDIR) -I../t1lib -idirafter H:/glibc/include
+OPTIONS   = @OPTIONS@
+X_LIBS    = @X_LIBS@
+TOPSRC    = @top_srcdir@
+XPM_LIB   = -lXpm
+XLIB      = @X_PRE_LIBS@ -lXext -lX11 @X_EXTRA_LIBS@
+LDFLAGS   = @LDFLAGS@
+LDLIBS    = @LDLIBS@
+AR        = ar rc
+RANLIB    = @RANLIB@
+RM        = rm -f
+X_CFLAGS  = @X_CFLAGS@
+YACC      = @YACC@
+LEX       = @LEX@
+LEXLIB    = @LEXLIB@
+ALLCFLAGS = $(CFLAGS) 
+SUBMAKE   = $(MAKE) 'CC=$(CC)' 'CFLAGS=$(INCLUDES) $(ALLCFLAGS)' 'OPTIONS=$(OPTIONS)'
+@SET_MAKE@
+
+INSTALL         = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA    = @INSTALL_DATA@
+MKINSTALLDIRS   = @top_srcdir@/ac-tools/mkinstalldirs
+prefix          = @prefix@
+exec_prefix     = @exec_prefix@
+includedir      = @includedir@
+bindir          = @bindir@
+datadir         = @datadir@
+libdir          = @libdir@
+mandir          = @mandir@/man1
+manext          = .1
+no_x            = @no_x@
+
+
+# targets to build: 
+
+OBJS = \
+	arith.lo \
+	curves.lo \
+	fontfcn.lo \
+	hints.lo \
+	lines.lo \
+	objects.lo \
+	paths.lo \
+	regions.lo \
+	scanfont.lo \
+	spaces.lo \
+	t1io.lo \
+	t1snap.lo \
+	t1stub.lo \
+	token.lo \
+	type1.lo \
+	util.lo 
+
+
+.SUFFIXES: .c .o .lo .rc .rc
+.c.lo:
+	$(LIBTOOL) --mode=compile \
+		$(CC) -c $(CPPFLAGS) $(INCLUDES) $(CFLAGS) $<
+
+RCTOOL_COMPILE = RCTOOL
+# Rule to make compiled resource (Windows)
+%-rc.o: %.rc
+	windres --include-dir $(resdir) -i $< -o $@
+
+
+.c.o:
+	$(LIBTOOL) --mode=compile \
+		$(CC) -c $(CPPFLAGS) $(CFLAGS) $< 
+
+
+all: $(OBJS)
+
+.PHONY: clean
+
+dependencies: dummy 
+	gcc -MM *.c | sed 's/\.o:/.lo:/g' > .dependencies 
+
+clean: dummy
+	-$(RM) *.lo *.o .libs/*
+	-$(RM) *~ *.bak \#*\#
+	-rmdir .libs
+
+install: dummy
+
+
+dummy:
+
+
+# Dependencies of object files 
+include $(TOPSRC)/lib/type1/.dependencies
+

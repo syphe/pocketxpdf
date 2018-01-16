@@ -1,0 +1,79 @@
+0.5.0
+    * Fix: CAB file installation to memory card is now possible
+    * Fix: Reacquire file handles if lost after suspend
+    * New: Bookmarks, user-defined and for recently used files
+    * New: More flexible button mapping
+    * New: While a page is displayed, the following page is rendered in the background
+    * New: Doubleclick in the outline view opens the resp. page    
+    * Fix: Opening file associations/ email attachments now works even if PocketXpdf is running in the background            
+    * Update to Freetype 2.2.1             
+
+0.4.0    
+    
+    * Experiments with smooth scrolling.
+    * Outline view.
+    * Fixed couple of bugs with text search.
+    * Changed found text visualization.
+    * Found text is centered now.
+    * Drag zoom has been merged back.
+    * Navigating using tap zones. There are 9 tap zones forming 3x3 matrix,
+      each can be assigned for an independent function. Taps distinguished
+      by relative absence of movement and short holding time so they
+      do not invalidate screen dragging.
+      Zones called:
+          UL UC UR
+          ML MC MR
+          BL BC BR
+      with obvius meaning.
+    * Reduced number of screen updates.
+    * Avoid page rendering after Options dialog.
+    * Handle screen and window resizing.
+    * Scrollbar scrolling uses larger steps.
+    * up/down and left/right screen by screen scrolling, assigned to
+      tap zones UC/BC and ML/MR.
+    * Unique 'native' scrolling, assigned to BL/BR. BR causes current view
+      rotating in X axis, without changing Y axis at all just like
+      a reader do: scroll screen by screen to the left, and jump to
+      beginning of column when end of column reached. BL causes Y view
+      movements row by row.
+      This scrolling can be configured to support one or two column mode.
+      The scrolling uses 'black box' - i.e. the page area which is detected
+      to contain something during painting operation.
+    * Xpdf has been modified a bit to produce 'black box' instead of
+      'modified box'.
+    * Text search is implemented. Needs better indication though.
+    * Image properties dialog is implemented allowing to change
+      DPI.
+    * Options dialog changes list of buttons dynamically.
+
+    * Fix: Toolbar icons have the right size on VGA devices
+    * Page scrolling instead of cursor movement in text-only mode
+    * New: Support for password protected PDFs
+    * Fix: Removed flickering during scrolling
+    * Fix: Warning message when out of memory
+    * Reduced size of the executable to one third (thanks UPX)
+    * Slightly Increased scroll performance
+    * New: Zoom tool - Drag a rectangle around the area you want to zoom in
+    * New: Flip page when scrolling below bottom or above top (using keys or 
+      buttons, not the scrollbar)
+    * New: CAB file for installation
+    * Fix: PDFFile association now also works for mail attachments (MSMessaging)
+    * Fix: Disabling the file association in the Options-Dialog restores the 
+      associations installed by Adobe Reader(TM)/ClearVuePDF(TM)                            
+
+0.3.1
+
+    * Fonts can be placed in the directory where the executable is located
+    * Several minor bug fixes
+
+0.3  	
+
+    * Optional  full screen mode
+    * Rotate page ("landscape")
+    * Text-only view (great for low res displays)
+    * Optional scroll bars
+    * Wait message during rendering
+
+0.2 	
+
+    * Initial public version
